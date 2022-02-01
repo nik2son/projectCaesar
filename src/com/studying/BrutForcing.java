@@ -4,13 +4,14 @@ package com.studying;
 Часть 3. Расшифровать текст методом перебора ключей брут-форс
  */
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.studying.Main.decryptedText;
+import static com.studying.Main.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class BrutForcing {
@@ -37,6 +38,12 @@ public class BrutForcing {
                 System.out.println("Расшифрованный файл записан");
                 break;
             }
+        }
+
+        try(BufferedWriter bwSrc = Files.newBufferedWriter(Paths.get(decryptedTextByBrutForce))) {
+            bwSrc.write(resultDecrypted); //записали в файл encryptedText зашифрованный текст в формате массива байт
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 

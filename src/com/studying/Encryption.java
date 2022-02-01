@@ -4,9 +4,13 @@ package com.studying;
 Часть 1. Зашифровать текст
  */
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static com.studying.Main.CONSOLE;
+import static com.studying.Main.encryptedText;
 
 public class Encryption {
 
@@ -26,5 +30,12 @@ public class Encryption {
                 }
             }
         }
+
+        try(BufferedWriter bwSrc = Files.newBufferedWriter(Paths.get(encryptedText))) {
+            bwSrc.write(resultEncrypted); //записали в файл encryptedText зашифрованный текст в формате массива байт
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
+
