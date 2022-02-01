@@ -6,6 +6,7 @@ package com.studying;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class Statistics {
 
         String srcStat = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/statisticAnalysisText.txt";
         String srcText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt";
+        String srcResult = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/resultText.txt";
 
         String statisticAnalysis = Files.readString(Paths.get(srcStat), UTF_8);
         String encryptedText = Files.readString(Paths.get(srcText), UTF_8);
@@ -34,13 +36,29 @@ public class Statistics {
         HashMap<Character, Integer> exampleStatistics = createCharacterStatistics(statisticAnalysis); //мапа для хранения выборки по образцовому тексту
         HashMap<Character, Integer> encryptedTextStatistics = createCharacterStatistics(encryptedText); //мапа для хранения выборки по зашифрованному тексту
         HashMap<Character, Character> characterStatisticsResult = createCharacterStatistics(encryptedTextStatistics, exampleStatistics); //мапа для хранения сопоставления символа в зашифрованном тексте и образце текста
+        createResultDecrypted(srcResult, encryptedText, characterStatisticsResult);
+    }
+
+    private static void createResultDecrypted(String srcResult, String encryptedText, HashMap<Character, Character> characterStatisticsResult) {
         StringBuilder resultDecrypted = new StringBuilder();
         for (int i = 0; i < encryptedText.length(); i++) {
-            char charDecrypted = characterStatisticsResult.get(encryptedText.charAt(i));
-            resultDecrypted.append(charDecrypted);
+            if (characterStatisticsResult.get(encryptedText.charAt(i)) == null) {
+                continue;
+            } else {
+                char charDecrypted = characterStatisticsResult.get(encryptedText.charAt(i));
+                resultDecrypted.append(charDecrypted);
+            }
         }
-        System.out.println(resultDecrypted.toString());
-        //далее результат расшифровки методом стат анализа записать в файл и предложить пользователю проверить качество
+        //System.out.println(resultDecrypted.toString());
+        writeResultDecryptedToFile(Paths.get(srcResult), resultDecrypted);
+    }
+
+    public static void writeResultDecryptedToFile(Path path, StringBuilder sb) {
+        try {
+            Files.writeString(path, sb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static HashMap<Character, Character> createCharacterStatistics(HashMap<Character, Integer> encryptedTextStatistics ,
@@ -49,10 +67,14 @@ public class Statistics {
         HashMap<Character, Character> result = new HashMap<>();
         for (int i = 0; i < ALPHABET.length(); i++) {
             char c = ALPHABET.charAt(i); //берем например символ "а" из алфавита
-            Integer characterStat = exampleStatistics.get(c); //в экземпляровой статистике "а" встречается 55процентов раз(значение)
-            Character closestCharacterFromStatMap = getClosestCharacterFromStatMap(encryptedTextStatistics, characterStat);
-            //значит для зашифрованного текста нужно применить значение в 55процентов в методе по определению ближайшего
-            result.put(closestCharacterFromStatMap, c);
+            if (exampleStatistics.get(c) == null) {
+                continue;
+            } else {
+                Integer characterStat = exampleStatistics.get(c); //в экземпляровой статистике "а" встречается 55процентов раз(значение)
+                Character closestCharacterFromStatMap = getClosestCharacterFromStatMap(encryptedTextStatistics, characterStat);
+                //значит для зашифрованного текста нужно применить значение в 55процентов в методе по определению ближайшего
+                result.put(closestCharacterFromStatMap, c);
+            }
         }
         return result;
     }
@@ -80,12 +102,11 @@ public class Statistics {
         return result;
     }
 
-    //метод вычисляет какой символ получается по ближайшему совпадению процентов содержания символов (55-54, 1-1, 27-27  и тп)
     public static Character getClosestCharacterFromStatMap(HashMap<Character, Integer> statMap, Integer value) {
-        Integer minDelta = Integer.MAX_VALUE;
+        int minDelta = Integer.MAX_VALUE;
         Character charValue = ' ';
         for (Map.Entry<Character, Integer> characterIntegerEntry : statMap.entrySet()) {
-            int delta = Math.abs(characterIntegerEntry.getValue() - value); //какая разница по модулю ближе всего друг к другу (55-54, 1-1, 27-27  и тп)
+            int delta = Math.abs(characterIntegerEntry.getValue() - value);
             if (delta < minDelta) {
                 minDelta = delta;
                 charValue = characterIntegerEntry.getKey();

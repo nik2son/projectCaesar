@@ -14,7 +14,6 @@ public class Main {
 
     public static final Scanner CONSOLE = new Scanner(System.in);
     public static final String ALPHABET = "абвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,-:()«»%1234567890 "; //алфавит
-    public static final char[] CHARALPHABET = ALPHABET.toCharArray(); //алфавит, конвертированный в char
     public static char[] charAlphabet = ALPHABET.toCharArray();
 
     static String src = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/initialText.txt"; //текст для шифрования
@@ -83,12 +82,7 @@ public class Main {
                 case "exit":
                     System.out.println("Программа успешно завершена");
                     return;
-                //сюда попадает логика для введения ключа из методов шифрования, подумать как игнорировать здесь
-                default: {
-                    System.out.println("Недопустимое значеие. Выберите число от 1 до 4 или введите exit");
-                }
             }
         }
     }
-
 }
