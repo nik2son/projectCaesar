@@ -18,8 +18,8 @@ public class Main {
 
     static String src = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/initialText.txt"; //адрес файла с текстом для шифрования
     static String encryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt"; //адрес файла для хранения зашифрованного текста
-    static String decryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedText.txt"; //создаем файл для хранения расшифрованного текста
-    static String decryptedTextByBrutForce = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedTextByBrutForce.txt";
+    static String decryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedText.txt"; //адрес файл для хранения расшифрованного текста
+    static String decryptedTextByBrutForce = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedTextByBrutForce.txt"; //адрес файл для хранения расшифрованного текста методом брутфорс
 
     static String encrypted;
 
@@ -53,17 +53,13 @@ public class Main {
             String exit = CONSOLE.nextLine();
             switch (exit) {
                 case "1":
-                    //encrypt(charInitialText, charAlphabet, resultEncrypted);
                     encrypt(charAlphabet);
-                    //System.out.println(new String(resultEncrypted)); //проверка шифрования
                     break;
                 case "2":
-                    decrypt(charEncrypted, charAlphabet, resultDecrypted, 10);
-                    System.out.println(new String(resultDecrypted)); //проверка дешифрования
+                    decrypt(charAlphabet);
                     break;
                 case "3":
-                    brutForce(charEncrypted, charAlphabet, resultDecrypted);
-                    System.out.println(new String(resultDecrypted)); //проверка брутфорса
+                    brutForce(charAlphabet);
                     break;
                 case "4":
                     statistics();

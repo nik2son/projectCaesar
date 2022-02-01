@@ -16,7 +16,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class BrutForcing {
 
-    public static void brutForce(char[] charEncrypted, char[] charAlphabet, char[] resultDecrypted) throws IOException {
+    public static void brutForce(char[] charAlphabet) throws IOException {
+        System.out.println("Введите адрес файла, который требуется расшифровать");
+        String sourceFile = CONSOLE.nextLine();
+        String textForDecryption = Files.readString(Paths.get(sourceFile));
+        char[] charEncrypted = textForDecryption.toCharArray();
+        char[] resultDecrypted = new char[textForDecryption.length()];
         int key; String stringKey = "Ключ - ";
         for (key = 1; key <= charAlphabet.length; key++) {
             for (int i = 0; i < charEncrypted.length; i++) {
