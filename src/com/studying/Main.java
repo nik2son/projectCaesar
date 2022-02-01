@@ -21,20 +21,7 @@ public class Main {
     static String decryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedText.txt"; //адрес файл для хранения расшифрованного текста
     static String decryptedTextByBrutForce = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedTextByBrutForce.txt"; //адрес файл для хранения расшифрованного текста методом брутфорс
 
-    static String encrypted;
-
-    static {
-        try {
-            encrypted = Files.readString(Paths.get(encryptedText));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    static char[] charEncrypted = encrypted.toCharArray();
-    static char[] resultDecrypted = new char[encrypted.length()]; //массив для записи расшифрованного текста в формате char
-
     public static void main(String[] args) throws IOException {
-
         run();
 
     }
