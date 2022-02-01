@@ -31,7 +31,6 @@ public class Main {
         }
     }
     static char[] charEncrypted = encrypted.toCharArray();
-
     static char[] resultDecrypted = new char[encrypted.length()]; //массив для записи расшифрованного текста в формате char
 
     public static void main(String[] args) throws IOException {

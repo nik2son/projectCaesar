@@ -13,16 +13,16 @@ import static com.studying.Main.CONSOLE;
 import static com.studying.Main.encryptedText;
 
 public class Encryption {
-                               //char[] charInitialText, char[] charAlphabet, char[] resultEncrypted
+
     public static void encrypt(char[] charAlphabet) throws IOException { //продумать введение кода шифрования пользователем
         System.out.println("Введите адрес файла, который требуется зашифровать");
         String sourceFile = CONSOLE.nextLine();
-        String textForEncryption = Files.readString(Paths.get(sourceFile)); //initialText = Files.readString(Paths.get(src));
-        char[] charInitialText = textForEncryption.toCharArray();                  //static char[] charInitialText = initialText.toCharArray();
+        String textForEncryption = Files.readString(Paths.get(sourceFile));
+        char[] charInitialText = textForEncryption.toCharArray();
         char[] resultEncrypted = new char[textForEncryption.length()];
         System.out.println("Введите ключ шифрования");
         int key = CONSOLE.nextInt();
-        for (int i = 0; i < charInitialText.length; i++) { //работа с одним конкретным файлом, не универсалный доступ к библиотеке для шифрования
+        for (int i = 0; i < charInitialText.length; i++) {
             char charTempOuter = charInitialText[i];
             for (int j = 0; j < charAlphabet.length; j++) {
                 char charTempInner = charAlphabet[j];
