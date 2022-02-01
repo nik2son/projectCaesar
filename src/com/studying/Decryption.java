@@ -24,7 +24,7 @@ public class Decryption {
         }
 
         try (BufferedWriter bwSrc = Files.newBufferedWriter(Paths.get(decryptedText))) {
-            bwSrc.write(resultDecrypted); //записали в файл encryptedText зашифрованный текст в формате массива байт
+            bwSrc.write(resultDecrypted); //записали в файл decryptedText расшифрованный текст в формате массива байт
         } catch (Exception e) {
             e.printStackTrace();
         }

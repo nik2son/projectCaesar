@@ -16,21 +16,10 @@ public class Main {
     public static final String ALPHABET = "абвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,-:()«»%1234567890 "; //алфавит
     public static char[] charAlphabet = ALPHABET.toCharArray();
 
-    static String src = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/initialText.txt"; //текст для шифрования
-    static String encryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt"; //создаем файл для хранения зашифрованного текста
+    static String src = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/initialText.txt"; //адрес файла с текстом для шифрования
+    static String encryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt"; //адрес файла для хранения зашифрованного текста
     static String decryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedText.txt"; //создаем файл для хранения расшифрованного текста
     static String decryptedTextByBrutForce = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedTextByBrutForce.txt";
-
-    static String initialText;
-
-    static {
-        try {
-            initialText = Files.readString(Paths.get(src));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    static char[] charInitialText = initialText.toCharArray();
 
     static String encrypted;
 
@@ -43,7 +32,6 @@ public class Main {
     }
     static char[] charEncrypted = encrypted.toCharArray();
 
-    static char[] resultEncrypted = new char[initialText.length()]; //массив для записи зашифрованного текста в формате char
     static char[] resultDecrypted = new char[encrypted.length()]; //массив для записи расшифрованного текста в формате char
 
     public static void main(String[] args) throws IOException {
@@ -66,8 +54,9 @@ public class Main {
             String exit = CONSOLE.nextLine();
             switch (exit) {
                 case "1":
-                    encrypt(charInitialText, charAlphabet, resultEncrypted);
-                    System.out.println(new String(resultEncrypted)); //проверка шифрования
+                    //encrypt(charInitialText, charAlphabet, resultEncrypted);
+                    encrypt(charAlphabet);
+                    //System.out.println(new String(resultEncrypted)); //проверка шифрования
                     break;
                 case "2":
                     decrypt(charEncrypted, charAlphabet, resultDecrypted, 10);
