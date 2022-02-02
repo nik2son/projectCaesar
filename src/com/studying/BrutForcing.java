@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.studying.Main.*;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class BrutForcing {
 
@@ -36,20 +35,21 @@ public class BrutForcing {
             int resultComaSpace = isExistComaSpace(resultDecrypted);
             int resultPointSpace = isExistPointSpace(resultDecrypted);
             int resultInterestSpace = isExistInterestSpace(resultDecrypted);
-            int resultLongWord = isCountLongWord();
+            int resultLongWord = isCountLongWord(resultDecrypted);
             if ((resultComaSpace > 5) && (resultPointSpace > 5) && (resultInterestSpace > 1) && (resultLongWord < 5)) {
                 System.out.println(stringKey + key);
-                //записать результат расшифровки в файл
-                System.out.println("Расшифрованный файл записан");
                 break;
             }
         }
 
+        System.out.println("Укажите адрес для сохранения расшифрованного файла");
+        String decryptedTextByBrutForce = CONSOLE.nextLine();
         try(BufferedWriter bwSrc = Files.newBufferedWriter(Paths.get(decryptedTextByBrutForce))) {
-            bwSrc.write(resultDecrypted); //записали в файл encryptedText зашифрованный текст в формате массива байт
+            bwSrc.write(resultDecrypted); //записали в файл decryptedTextByBrutForce зашифрованный текст методом брутфорс в формате массива байт
         } catch(Exception e) {
             e.printStackTrace();
         }
+        System.out.printf("Расшифрованный файл успешно сохранен по адресу:\n %s", decryptedTextByBrutForce);
     }
 
     public static int isExistComaSpace(char[] textForAnalysis) {
@@ -79,10 +79,8 @@ public class BrutForcing {
         } return counterInterest;
     }
 
-    public static int isCountLongWord() throws IOException {
-        //переписать код, чтобы программа обращалась к переменной resultDecrypted вместо decryptedText.txt
-        //программа должна считывать текст из файла, текст должен быть расшифрован
-        String lines = Files.readString(Paths.get(decryptedText), UTF_8);
+    public static int isCountLongWord(char[] textForAnalysis) {
+        String lines = new String(textForAnalysis);
         String[] linesWithSpace = lines.split(" ");
         List<Integer> list = new ArrayList<>();
 

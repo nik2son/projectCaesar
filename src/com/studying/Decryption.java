@@ -19,8 +19,8 @@ public class Decryption {
         String textForDecryption = Files.readString(Paths.get(sourceFile));
         char[] charEncrypted = textForDecryption.toCharArray();
         char[] resultDecrypted = new char[textForDecryption.length()];
-        System.out.println("Введите ключ шифрования");
-        int key = CONSOLE.nextInt();
+        System.out.println("Введите ключ для расшифрования");
+        int key = Integer.parseInt(CONSOLE.nextLine());
         for (int i = 0; i < charEncrypted.length; i++) {
             char charTempOuter = charEncrypted[i];
             for (int j = 0; j < charAlphabet.length; j++) {
@@ -31,10 +31,13 @@ public class Decryption {
             }
         }
 
+        System.out.println("Укажите адрес для сохранения расшифрованного файла");
+        String decryptedText = CONSOLE.nextLine();
         try (BufferedWriter bwSrc = Files.newBufferedWriter(Paths.get(decryptedText))) {
             bwSrc.write(resultDecrypted); //записали в файл decryptedText расшифрованный текст в формате массива байт
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.printf("Расшифрованный файл успешно сохранен по адресу:\n %s", decryptedText);
     }
 }

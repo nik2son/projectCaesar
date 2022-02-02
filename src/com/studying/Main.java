@@ -1,8 +1,6 @@
 package com.studying;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import static com.studying.BrutForcing.brutForce;
@@ -15,11 +13,6 @@ public class Main {
     public static final Scanner CONSOLE = new Scanner(System.in);
     public static final String ALPHABET = "абвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,-:()«»%1234567890 "; //алфавит
     public static char[] charAlphabet = ALPHABET.toCharArray();
-
-    static String src = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/initialText.txt"; //адрес файла с текстом для шифрования
-    static String encryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt"; //адрес файла для хранения зашифрованного текста
-    static String decryptedText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedText.txt"; //адрес файл для хранения расшифрованного текста
-    static String decryptedTextByBrutForce = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/decryptedTextByBrutForce.txt"; //адрес файл для хранения расшифрованного текста методом брутфорс
 
     public static void main(String[] args) throws IOException {
         run();
@@ -36,7 +29,6 @@ public class Main {
         System.out.println("Чтобы выйти из программы, введите exit.");
 
         while (true) {
-            //добавить проверку введения пользователем иных символов
             String exit = CONSOLE.nextLine();
             switch (exit) {
                 case "1":

@@ -12,34 +12,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.studying.Main.ALPHABET;
+import static com.studying.Main.CONSOLE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Statistics {
 
     public static void statistics() throws IOException {
 
-        //System.out.println("Введите файл для статистики"); //образец, большой файл
-        //String fileAddressStatisticAnalysis = CONSOLE.nextLine();
-        //прописать доступ к файлу
+        System.out.println("Введите адрес файла для статистики"); //образец, большой файл для сбора статистических данных
+        System.out.println("Введите адрес файла для анализа шифрования"); //зашифрованный файл для попытки расшифровки
 
-        //System.out.println("Введите файл для анализа шифрования"); //зашифрованный файл
-        //String fileAddressEncryptedText = CONSOLE.nextLine();
-        //прописать доступ к файлу
-
-        String srcStat = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/statisticAnalysisText.txt";
-        String srcText = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/encryptedText.txt";
-        String srcResult = "/Users/nikola/Documents/IT/Education/Java/JavaRushUniversity/resultText.txt";
-
+        String srcStat = CONSOLE.nextLine();
+        String srcText = CONSOLE.nextLine();
         String statisticAnalysis = Files.readString(Paths.get(srcStat), UTF_8);
         String encryptedText = Files.readString(Paths.get(srcText), UTF_8);
 
         HashMap<Character, Integer> exampleStatistics = createCharacterStatistics(statisticAnalysis); //мапа для хранения выборки по образцовому тексту
         HashMap<Character, Integer> encryptedTextStatistics = createCharacterStatistics(encryptedText); //мапа для хранения выборки по зашифрованному тексту
         HashMap<Character, Character> characterStatisticsResult = createCharacterStatistics(encryptedTextStatistics, exampleStatistics); //мапа для хранения сопоставления символа в зашифрованном тексте и образце текста
-        createResultDecrypted(srcResult, encryptedText, characterStatisticsResult);
+        createResultDecrypted(encryptedText, characterStatisticsResult);
+
     }
 
-    private static void createResultDecrypted(String srcResult, String encryptedText, HashMap<Character, Character> characterStatisticsResult) {
+    private static void createResultDecrypted(String encryptedText, HashMap<Character, Character> characterStatisticsResult) {
         StringBuilder resultDecrypted = new StringBuilder();
         for (int i = 0; i < encryptedText.length(); i++) {
             if (characterStatisticsResult.get(encryptedText.charAt(i)) == null) {
@@ -49,8 +44,10 @@ public class Statistics {
                 resultDecrypted.append(charDecrypted);
             }
         }
-        //System.out.println(resultDecrypted.toString());
+        System.out.println("Укажите адрес для сохранения расшифрованного файла");
+        String srcResult = CONSOLE.nextLine();
         writeResultDecryptedToFile(Paths.get(srcResult), resultDecrypted);
+        System.out.printf("Расшифрованный файл успешно сохранен по адресу:\n %s", srcResult);
     }
 
     public static void writeResultDecryptedToFile(Path path, StringBuilder sb) {
